@@ -58,8 +58,6 @@ const goToDetails = (article: any) => {
     query: { data: JSON.stringify(article) }
   })
 }
-
-// reset page when articles change
 watch(allArticles, () => {
   page.value = 1
 })

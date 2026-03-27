@@ -4,16 +4,15 @@ import axios from 'axios'
 export const useNews = () => {
   const allArticles = ref<any[]>([])
   const loading = ref(false)
-  const PAGE_SIZE = 10 
+  const PAGE_SIZE = 10
 
   const fetchNews = async (keyword = '') => {
     loading.value = true
     try {
-      const config = useRuntimeConfig()
-      const res = await axios.get('https://newsapi.org/v2/everything', {
+      // ✅ Call your own server route instead of NewsAPI directly
+      const res = await axios.get('/api/news', {
         params: {
-          q: keyword || 'news',
-          apiKey: config.public.newsApiKey
+          q: keyword || 'news'
         }
       })
       allArticles.value = res.data.articles

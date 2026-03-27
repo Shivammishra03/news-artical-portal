@@ -4,9 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   runtimeConfig: {
-    public: {
-      newsApiKey: process.env.NEWS_API_KEY
-    }
+    newsApiKey: process.env.NEWS_API_KEY || 'your_default_api_key_here'
   },
 
   modules: ['@nuxtjs/tailwindcss']

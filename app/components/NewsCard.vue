@@ -1,7 +1,6 @@
 <template>
   <div @click="$emit('click')" class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer">
-    <!-- <img :src="article.urlToImage || placeholder" loading="lazy" alt="News Image" class="w-full h-48 object-cover"/> -->
-    <NuxtImg :src="article.urlToImage || placeholder" loading="lazy" alt="News Image" class="w-full h-48 object-cover"/>
+    <img :src="article.urlToImage || placeholder" loading="lazy" alt="News Image" class="w-full h-48 object-cover"/>
     <div class="p-4">
       <h2 class="font-semibold text-lg mb-2">{{ article.title }}</h2>
       <p class="text-gray-500 text-sm mb-2">{{ formatDate(article.publishedAt) }}</p>

@@ -1,3 +1,36 @@
+<script setup lang="ts">
+import { ref, computed, onMounted, watch } from 'vue'
+import NewsCard from '~/components/NewsCard.vue'
+import { useNews } from '~/composables/useNews'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const { allArticles, loading, fetchNews, getPage, totalPages } = useNews()
+
+const page = ref(1)
+const keyword = ref('')
+const pagedArticles = computed(() => getPage(page.value))
+const totalPagesNum = computed(() => totalPages())
+
+const searchNews = () => {
+  page.value = 1
+  fetchNews(keyword.value)
+}
+
+const goToDetails = (article: any) => {
+  router.push({
+    name: 'news-id',
+    params: { id: encodeURIComponent(article.url) },
+    query: { data: JSON.stringify(article) }
+  })
+}
+watch(allArticles, () => {
+  page.value = 1
+})
+
+onMounted(() => fetchNews())
+</script>
+
 <template>
     <div class="mb-6">
       <input
@@ -31,36 +64,3 @@
       </div>
     </div>
 </template>
-
-<script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
-import NewsCard from '~/components/NewsCard.vue'
-import { useNews } from '~/composables/useNews'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const { allArticles, loading, fetchNews, getPage, totalPages } = useNews()
-
-const page = ref(1)
-const keyword = ref('')
-const pagedArticles = computed(() => getPage(page.value))
-const totalPagesNum = computed(() => totalPages())
-
-const searchNews = () => {
-  page.value = 1
-  fetchNews(keyword.value)
-}
-
-const goToDetails = (article: any) => {
-  router.push({
-    name: 'news-id',
-    params: { id: encodeURIComponent(article.url) },
-    query: { data: JSON.stringify(article) }
-  })
-}
-watch(allArticles, () => {
-  page.value = 1
-})
-
-onMounted(() => fetchNews())
-</script>
